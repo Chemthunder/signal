@@ -28,6 +28,33 @@ public class SignalHudEvent implements HudRenderCallback {
                     context.getScaledWindowHeight() / 2,
                     0xFFffffff
             );
+
+            context.drawText(
+                    client.textRenderer,
+                    Text.literal(Math.round(player.getHealth()) + "/" + Math.round(player.getMaxHealth())),
+                    5,
+                    10,
+                    0xFFffffff,
+                    true
+            );
+
+            context.drawText(
+                    client.textRenderer,
+                    Text.literal(player.getHungerManager().getFoodLevel() + ""),
+                    5,
+                    20,
+                    0xFFffffff,
+                    true
+            );
+
+            context.drawText(
+                    client.textRenderer,
+                    Text.literal(player.getWorld().getLunarTime() + ""),
+                    5,
+                    30,
+                    0xFFffffff,
+                    true
+            );
         }
     }
 }

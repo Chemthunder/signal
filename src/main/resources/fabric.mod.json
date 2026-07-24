@@ -39,7 +39,8 @@
   },
   "custom": {
     "cardinal-components": [
-      "signal:signal"
+      "signal:signal",
+      "signal:dropship"
     ]
   }
 }

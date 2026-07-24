@@ -1,4 +1,4 @@
-package org.autumn.signal.core.event.client;
+package org.autumn.signal.core.client.event;
 
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;

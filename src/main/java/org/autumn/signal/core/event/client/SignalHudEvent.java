@@ -21,19 +21,11 @@ public class SignalHudEvent implements HudRenderCallback {
         SignalComponent signal = SignalComponent.KEY.get(player);
 
         if (signal.isClanker()) {
-            context.drawCenteredTextWithShadow(
-                    client.textRenderer,
-                    Text.literal("Test"),
-                    context.getScaledWindowWidth() / 2,
-                    context.getScaledWindowHeight() / 2,
-                    0xFFffffff
-            );
-
             context.drawText(
                     client.textRenderer,
                     Text.literal(Math.round(player.getHealth()) + "/" + Math.round(player.getMaxHealth())),
-                    5,
-                    10,
+                    context.getScaledWindowWidth() / 2,
+                    context.getScaledWindowHeight() - 50,
                     0xFFffffff,
                     true
             );
@@ -49,7 +41,7 @@ public class SignalHudEvent implements HudRenderCallback {
 
             context.drawText(
                     client.textRenderer,
-                    Text.literal(player.getWorld().getLunarTime() + ""),
+                    Text.literal(player.getWorld().getTimeOfDay() + ""),
                     5,
                     30,
                     0xFFffffff,

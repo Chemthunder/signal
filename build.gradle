@@ -31,6 +31,12 @@ repositories {
         name = "Ladysnake Mods"
         url = 'https://maven.ladysnake.org/releases'
     }
+
+    // Veil
+    maven {
+        name = 'BlameJared Maven (CrT / Bookshelf)'
+        url = 'https://maven.blamejared.com'
+    }
 }
 
 fabricApi {
@@ -50,11 +56,18 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
     modImplementation "maven.modrinth:acornlib:${project.acornlib_version}"
+    modImplementation include("maven.modrinth:nitrogen_rbn:${project.nitrogen_version}")
+    modImplementation ("maven.modrinth:midnightlib:${project.midnightlib_version}")
     modImplementation include("org.ladysnake.cardinal-components-api:cardinal-components-base:${project.cca_version}")
     modImplementation include("org.ladysnake.cardinal-components-api:cardinal-components-entity:${project.cca_version}")
     modImplementation include("org.ladysnake.cardinal-components-api:cardinal-components-world:${project.cca_version}")
     modImplementation "dev.emi:trinkets:${project.trinkets_version}"
     include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:${project.mixinsquared_version}")))
+
+    modImplementation include("foundry.veil:veil-fabric-${project.minecraft_version}:${project.veil_version}") {
+        exclude group: "maven.modrinth"
+        exclude group: "me.fallenbreath"
+    }
 }
 
 processResources {

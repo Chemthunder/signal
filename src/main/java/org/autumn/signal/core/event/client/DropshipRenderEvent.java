@@ -1,16 +1,14 @@
 package org.autumn.signal.core.event.client;
 
-import foundry.veil.api.client.render.VeilRenderer;
-import foundry.veil.api.event.VeilRenderLevelStageEvent;
-import foundry.veil.api.event.VeilRendererAvailableEvent;
-import foundry.veil.platform.VeilEventPlatform;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.WorldRenderer;
-import net.minecraft.client.render.debug.DebugRenderer;
+import net.minecraft.client.render.RenderTickCounter;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.RotationAxis;
+import net.minecraft.util.math.Vec2f;
 import org.autumn.signal.api.client.render.Nitro;
 import org.autumn.signal.core.Signal;
 import org.autumn.signal.core.SignalClient;
@@ -18,52 +16,86 @@ import org.autumn.signal.core.SignalClient;
 /**
  * @author Chemthunder
  */
-public class DropshipRenderEvent {
-    public static void create() {
-        VeilEventPlatform.INSTANCE.onVeilRenderLevelStage(((
-                stage,
-                worldRenderer,
-                immediate,
-                matrixStack,
-                matrix4fc,
-                matrix4fc1,
-                i,
-                renderTickCounter,
-                camera,
-                frustum
-        ) -> {
-            if (stage.equals(VeilRenderLevelStageEvent.Stage.AFTER_SKY)) {
-                MatrixStack stack = matrixStack.toPoseStack();
+public class DropshipRenderEvent implements WorldRenderEvents.Last {
+    public void onLast(WorldRenderContext worldRenderContext) {
+        RenderTickCounter renderTickCounter = worldRenderContext.tickCounter();
+        Camera camera = worldRenderContext.camera();
+        MatrixStack stack = worldRenderContext.matrixStack();
 
-                float x = (float) (100 - camera.getPos().x);
-                float y = (float) (100 - camera.getPos().y);
-                float z = (float) (100 - camera.getPos().z);
+        float x = (float) (100 - camera.getPos().x);
+        float y = (float) (90 - camera.getPos().y);
+        float z = (float) (100 - camera.getPos().z);
 
-                float delta = renderTickCounter.getTickDelta(true);
+        float delta = renderTickCounter.getTickDelta(true);
 
-                stack.push();
+        float size = 50;
 
-                stack.translate(x, y, z);
+        if (stack != null) {
+            VertexConsumerProvider immediate = worldRenderContext.consumers();
 
-                stack.multiply(
-                        RotationAxis.POSITIVE_Y.rotationDegrees((SignalClient.GLOBAL_AGE + delta) / 4),
-                        x,
-                        y,
-                        z
-                );
+            if (immediate != null) {
+                {
+                    stack.push();
 
-                Nitro.solColCube(
-                        stack,
-                        immediate.getBuffer(RenderLayer.getEndPortal()),
-                        0xFFffffff,
-                        x,
-                        y,
-                        z,
-                        20
-                );
+                    stack.multiply(
+                            RotationAxis.POSITIVE_Y.rotationDegrees((SignalClient.GLOBAL_AGE + delta) / 4F),
+                            x,
+                            y,
+                            z
+                    );
 
-                stack.pop();
+                    stack.multiply(
+                            RotationAxis.POSITIVE_Z.rotationDegrees((SignalClient.GLOBAL_AGE + delta) / 4F),
+                            x,
+                            y,
+                            z
+                    );
+
+                    Nitro.texCube(
+                            stack,
+                            immediate.getBuffer(RenderLayer.getBeaconBeam(Signal.id("icon.png"), true)),
+                            x,
+                            y,
+                            z,
+                            size + 3,
+                            new Vec2f(0, 0),
+                            1
+                    );
+
+                    stack.pop();
+                }
+
+                {
+                    stack.push();
+
+                    stack.multiply(
+                            RotationAxis.POSITIVE_Y.rotationDegrees((SignalClient.GLOBAL_AGE + delta) / 4),
+                            x,
+                            y,
+                            z
+                    );
+
+                    stack.multiply(
+                            RotationAxis.POSITIVE_Z.rotationDegrees((SignalClient.GLOBAL_AGE + delta) / 4),
+                            x,
+                            y,
+                            z
+                    );
+
+                    Nitro.texCube(
+                            stack,
+                            immediate.getBuffer(RenderLayer.getEndGateway()),
+                            x,
+                            y,
+                            z,
+                            size,
+                            new Vec2f(0, 0),
+                            1
+                    );
+
+                    stack.pop();
+                }
             }
-        }));
+        }
     }
 }

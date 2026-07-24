@@ -3,6 +3,7 @@ package org.autumn.signal.core.index;
 import net.acoyt.acornlib.api.registrants.ItemRegistrant;
 import net.minecraft.item.Item;
 import org.autumn.signal.core.Signal;
+import org.autumn.signal.core.index.ext.Frequencies;
 import org.autumn.signal.core.item.BeaconItem;
 
 /**
@@ -14,6 +15,7 @@ public interface SignalItems {
     Item BEACON = rant.register("beacon", BeaconItem::new, new Item.Settings()
             .maxCount(1)
             .fireproof()
+            .component(SignalComponentTypes.STORED_FREQUENCY, Frequencies.DROPSHIP)
     );
 
     static void init() {}

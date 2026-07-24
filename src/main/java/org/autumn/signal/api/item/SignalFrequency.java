@@ -26,7 +26,7 @@ public class SignalFrequency {
         this.display = display;
     }
 
-    public void use(World world, PlayerEntity user, BlockPos pos, ItemStack stack) {}
+    public void use(World world, PlayerEntity player, BlockPos pos, ItemStack stack) {}
 
     public Text getDisplay() {
         return display;

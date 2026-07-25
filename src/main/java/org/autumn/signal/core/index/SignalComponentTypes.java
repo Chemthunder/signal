@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 public interface SignalComponentTypes {
     ComponentTypeRegistrant rant = new ComponentTypeRegistrant(Signal.MOD_ID);
 
-    ComponentType<@Nullable SignalFrequency> STORED_FREQUENCY = rant.register(
+    ComponentType<SignalFrequency> STORED_FREQUENCY = rant.register(
             "stored_frequency",
             SignalFrequency.CODEC,
             SignalFrequency.PACKET

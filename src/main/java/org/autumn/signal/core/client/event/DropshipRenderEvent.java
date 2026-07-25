@@ -1,7 +1,6 @@
 package org.autumn.signal.core.client.event;
 
 import foundry.veil.api.client.util.Easing;
-import net.acoyt.acornlib.api.client.Easings;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
@@ -41,11 +40,13 @@ public class DropshipRenderEvent implements WorldRenderEvents.Last {
                     if (pos != null) {
                         float x = (float) (pos.x - camera.getPos().x);
                         float y1 = (float) ((pos.y) - camera.getPos().y);
-                        float y2 = (float) ((pos.y + 240) - camera.getPos().y);
+                        float y2 = (float) ((pos.y + 100) - camera.getPos().y);
 
                         float z = (float) (pos.z - camera.getPos().z);
 
-                        createDeployMarker(d, stack, immediate, x, y1, z, size, delta);
+                        if (d.getBeamWidth() > 0) {
+                            createDeployMarker(d, stack, immediate, x, y1, z, size, delta);
+                        }
 
                         if (d.getTime() == 0) {
                             createDropship(d, stack, immediate, x, y2, z, size, delta);
@@ -74,6 +75,88 @@ public class DropshipRenderEvent implements WorldRenderEvents.Last {
     }
 
     public static void createDropship(DropshipComponent d, MatrixStack stack, VertexConsumerProvider immediate, float x, float y, float z, float size, float delta) {
+        stack.push();
+
+        stack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180), x, y, z);
+
+        stack.translate(x, y, z);
+
+        {
+            stack.push();
+
+            stack.scale(size, size, size);
+
+            stack.translate(-((float) 5 / 2), 0, -((float) 5 / 2));
+
+            Nitro.quad(
+                    stack.peek(),
+                    immediate.getBuffer(RenderLayer.getEyes(Signal.id("textures/render/color.png"))),
+                    10,
+                    0,
+                    5,
+
+                    5,
+                    0,
+                    0,
+
+                    0,
+                    0,
+                    0,
+
+                    5,
+                    0,
+                    5,
+
+                    1,
+                    1,
+                    1,
+                    1
+            );
+
+            stack.pop();
+        }
+
+        {
+            stack.push();
+
+            stack.scale(size - 0.5F, size - 0.5F, size - 0.5F);
+
+            stack.translate(-((float) 5 / 2), 0, -((float) 5 / 2));
+
+            stack.translate(0.05F, 0, 0);
+
+            Nitro.quad(
+                    stack.peek(),
+                    immediate.getBuffer(RenderLayer.getEndGateway()),
+                    10,
+                    0,
+                    5,
+
+                    5,
+                    0,
+                    0,
+
+                    0,
+                    0,
+                    0,
+
+                    5,
+                    0,
+                    5,
+
+                    -1,
+                    -1,
+                    -1,
+                    -1
+            );
+
+            stack.pop();
+        }
+
+        stack.pop();
+    }
+
+    public static void createOldDropship(DropshipComponent d, MatrixStack stack, VertexConsumerProvider immediate, float x, float y, float z, float size, float delta) {
         {
             stack.push();
 

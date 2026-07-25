@@ -1,11 +1,17 @@
 package org.autumn.signal.core.cca.world;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.autumn.signal.core.Signal;
+import org.autumn.signal.core.networking.s2c.FlashPayload;
 import org.jetbrains.annotations.Nullable;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.ComponentRegistry;
@@ -23,7 +29,7 @@ public class DropshipComponent implements AutoSyncedComponent, CommonTickingComp
     );
     private final World world;
 
-    public static final float MAX_SCALE = 100.0F;
+    public static final float MAX_SCALE = 25.0F;
 
     private int time = 0;
     private int consoleOpacity = 1000;
@@ -43,6 +49,7 @@ public class DropshipComponent implements AutoSyncedComponent, CommonTickingComp
     public void tick() {
         if (primed && pos != null) {
             consoleOpacity = Math.clamp(consoleOpacity, 0, 100);
+            beamWidth = Math.clamp(beamWidth, 0.0F, 1F);
 
             if (time > 0) {
                 time--;
@@ -58,8 +65,6 @@ public class DropshipComponent implements AutoSyncedComponent, CommonTickingComp
                     consoleOpacity--;
                 }
             }
-
-            beamWidth = Math.clamp(beamWidth, 0.0F, 1F);
 
             if (time > 0) {
                 if (beamWidth < 1F) {
@@ -98,6 +103,12 @@ public class DropshipComponent implements AutoSyncedComponent, CommonTickingComp
         time = nbt.getInt("Time");
         consoleOpacity = nbt.getInt("ConsoleOpacity");
         beamWidth = nbt.getFloat("BeamWidth");
+
+        pos = new Vec3d(
+                nbt.getDouble("X"),
+                nbt.getDouble("Y"),
+                nbt.getDouble("Z")
+        );
     }
 
     public void writeToNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup wrapperLookup) {
@@ -107,6 +118,12 @@ public class DropshipComponent implements AutoSyncedComponent, CommonTickingComp
         nbt.putInt("Time", time);
         nbt.putInt("ConsoleOpacity", consoleOpacity);
         nbt.putFloat("BeamWidth", beamWidth);
+
+        if (pos != null) {
+            nbt.putDouble("X", pos.x);
+            nbt.putDouble("Y", pos.y);
+            nbt.putDouble("Z", pos.z);
+        }
     }
 
     public boolean isPrimed() {

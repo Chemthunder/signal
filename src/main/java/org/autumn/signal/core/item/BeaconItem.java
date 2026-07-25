@@ -23,22 +23,7 @@ public class BeaconItem extends Item {
     }
 
     public ActionResult useOnBlock(ItemUsageContext context) {
-        BlockPos pos = context.getBlockPos();
-        PlayerEntity player = context.getPlayer();
-        World world = context.getWorld();
-        ItemStack stack = context.getStack();
 
-        if (player != null) {
-            if (player.isSneaking()) {
-                if (stack.get(SignalComponentTypes.STORED_FREQUENCY) != null) {
-                    SignalFrequency frequency = stack.get(SignalComponentTypes.STORED_FREQUENCY);
-
-                    if (frequency != null) {
-                        frequency.use(world, player, pos, stack);
-                    }
-                }
-            }
-        }
         return super.useOnBlock(context);
     }
 }

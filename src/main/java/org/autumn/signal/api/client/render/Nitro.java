@@ -11,35 +11,35 @@ import net.minecraft.util.math.Vec2f;
  */
 @SuppressWarnings("unused")
 public class Nitro {
-    private static void quad(MatrixStack.Entry matrix, VertexConsumer vertices, int color, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4) {
+    public static void quad(MatrixStack.Entry matrix, VertexConsumer vertices, int color, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4) {
         vert(matrix, vertices, color, x1, y1, z1);
         vert(matrix, vertices, color, x2, y2, z2);
         vert(matrix, vertices, color, x3, y3, z3);
         vert(matrix, vertices, color, x4, y4, z4);
     }
 
-    private static void quad(MatrixStack.Entry matrix, VertexConsumer vertices, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, float u1, float v1, float u2, float v2) {
+    public static void quad(MatrixStack.Entry matrix, VertexConsumer vertices, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, float u1, float v1, float u2, float v2) {
         vert(matrix, vertices, x1, y1, z1, u1, v1);
         vert(matrix, vertices, x2, y2, z2, u2, v1);
         vert(matrix, vertices, x3, y3, z3, u2, v2);
         vert(matrix, vertices, x4, y4, z4, u1, v2);
     }
 
-    private static void quad(MatrixStack.Entry matrix, VertexConsumer vertices, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, float u1, float v1, float u2, float v2, float u3, float v3, float u4, float v4) {
+    public static void quad(MatrixStack.Entry matrix, VertexConsumer vertices, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, float u1, float v1, float u2, float v2, float u3, float v3, float u4, float v4) {
         vert(matrix, vertices, x1, y1, z1, u1, v1);
         vert(matrix, vertices, x2, y2, z2, u2, v2);
         vert(matrix, vertices, x3, y3, z3, u3, v3);
         vert(matrix, vertices, x4, y4, z4, u4, v4);
     }
 
-    private static void beamQuad(MatrixStack.Entry matrix, VertexConsumer vertices, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, float u1, float v1, float u2, float v2) {
+    public static void beamQuad(MatrixStack.Entry matrix, VertexConsumer vertices, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, float u1, float v1, float u2, float v2) {
         vert(matrix, vertices, x1, y1, z1, u1, v1);
         vert(matrix, vertices, x2, y2, z2, u2, v1);
         vert(matrix, vertices, x3, y3, z3, u2, v2);
         vert(matrix, vertices, x4, y4, z4, u1, v2);
     }
 
-    private static void vert(MatrixStack.Entry matrix, VertexConsumer vertices, int color, float x, float y, float z) {
+    public static void vert(MatrixStack.Entry matrix, VertexConsumer vertices, int color, float x, float y, float z) {
         int a = color >> 24 & 255;
         int r = color >> 16 & 255;
         int g = color >> 8 & 255;
@@ -47,11 +47,11 @@ public class Nitro {
         vertices.vertex(matrix, x, y, z).color(r, g, b, a).texture(0.0F, 0.0F).overlay(OverlayTexture.DEFAULT_UV).light(15728880).normal(matrix, 0.0F, 1.0F, 0.0F);
     }
 
-    private static void vert(MatrixStack.Entry matrix, VertexConsumer vertices, float x, float y, float z, float u, float v) {
+    public static void vert(MatrixStack.Entry matrix, VertexConsumer vertices, float x, float y, float z, float u, float v) {
         vertices.vertex(matrix, x, y, z).color(1.0F, 1.0F, 1.0F, 1.0F).texture(u, v).overlay(OverlayTexture.DEFAULT_UV).light(15728880).normal(matrix, 0.0F, 1.0F, 0.0F);
     }
 
-    private static void vert(MatrixStack.Entry matrix, VertexConsumer vertices, float x, float y, float z, float u, float v, float alpha, float red, float green, float blue) {
+    public static void vert(MatrixStack.Entry matrix, VertexConsumer vertices, float x, float y, float z, float u, float v, float alpha, float red, float green, float blue) {
         vertices.vertex(matrix, x, y, z).color(red, green, blue, alpha).texture(u, v).overlay(OverlayTexture.DEFAULT_UV).light(15728880).normal(matrix, 0.0F, 1.0F, 0.0F);
     }
 

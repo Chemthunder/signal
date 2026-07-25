@@ -10,6 +10,7 @@ import org.autumn.signal.core.index.SignalComponentTypes;
 import org.autumn.signal.core.index.SignalItems;
 import org.autumn.signal.core.index.SignalParticleTypes;
 import org.autumn.signal.core.index.SignalRegistries;
+import org.autumn.signal.core.networking.SignalNetworking;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +26,8 @@ public class Signal implements ModInitializer {
         SignalParticleTypes.init();
         SignalRegistries.init();
         SignalComponentTypes.init();
+
+        SignalNetworking.register();
 
         CommandRegistrationCallback.EVENT.register(new SignalCommand());
 

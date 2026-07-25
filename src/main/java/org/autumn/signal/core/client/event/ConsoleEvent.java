@@ -58,7 +58,7 @@ public class ConsoleEvent implements HudRenderCallback {
                 );
             }
 
-            if (d.getTime() <= 20) {
+            if (d.getTime() <= 25) {
                 context.drawText(
                         MinecraftClient.getInstance().textRenderer,
                         ConsoleFeedback.PAYLOAD_DEPLOYED.getFirst().text(),
@@ -69,7 +69,7 @@ public class ConsoleEvent implements HudRenderCallback {
                 );
             }
 
-            if (d.getTime() <= 5) {
+            if (d.getTime() <= 10) {
                 context.drawText(
                         MinecraftClient.getInstance().textRenderer,
                         ConsoleFeedback.PAYLOAD_DEPLOYED.get(1).text(),
@@ -80,12 +80,23 @@ public class ConsoleEvent implements HudRenderCallback {
                 );
             }
 
-            if (d.getTime() <= 2) {
+            if (d.getTime() <= 5) {
                 context.drawText(
                         MinecraftClient.getInstance().textRenderer,
                         "Extracting environmental data for reconnaissance.",
                         20,
                         100,
+                        color,
+                        true
+                );
+            }
+
+            if (d.getTime() <= 2) {
+                context.drawText(
+                        MinecraftClient.getInstance().textRenderer,
+                        "Safe travels, wanderer.",
+                        20,
+                        130,
                         color,
                         true
                 );

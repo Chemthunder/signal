@@ -20,19 +20,6 @@ public class DropshipDeployFrequency extends SignalFrequency {
     }
 
     public void use(World world, PlayerEntity player, BlockPos pos, ItemStack stack) {
-        DropshipComponent d = DropshipComponent.KEY.get(world);
 
-        d.start(new Vec3d(
-                pos.getX(),
-                pos.getY(),
-                pos.getZ()
-        ));
-
-        player.swingHand(player.getActiveHand());
-
-        world.playSound(null, pos, SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN, SoundCategory.BLOCKS, 1, 1);
-        world.playSound(null, pos, SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE, SoundCategory.BLOCKS, 1, 1);
-        world.playSound(null, pos, SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 1, 1);
-        world.playSound(null, pos, SoundEvents.ENTITY_IRON_GOLEM_STEP, SoundCategory.BLOCKS, 1, 1);
     }
 }

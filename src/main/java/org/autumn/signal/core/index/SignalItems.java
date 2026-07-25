@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 import org.autumn.signal.core.Signal;
 import org.autumn.signal.core.index.ext.Frequencies;
 import org.autumn.signal.core.item.BeaconItem;
+import org.autumn.signal.core.item.LeylineItem;
 
 /**
  * @author Chemthunder
@@ -15,7 +16,11 @@ public interface SignalItems {
     Item BEACON = rant.register("beacon", BeaconItem::new, new Item.Settings()
             .maxCount(1)
             .fireproof()
-            .component(SignalComponentTypes.STORED_FREQUENCY, Frequencies.DROPSHIP)
+    );
+
+    Item LEYLINE = rant.register("leyline", LeylineItem::new, new Item.Settings()
+            .maxCount(1)
+            .fireproof()
     );
 
     static void init() {}

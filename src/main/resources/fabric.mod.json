@@ -3,14 +3,10 @@
   "id": "signal",
   "version": "${version}",
   "name": "Signal",
-  "description": "",
+  "description": "Into the abyss.",
   "authors": [
     "Chemthunder"
   ],
-  "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
-  },
   "license": "ARR",
   "icon": "assets/signal/icon.png",
   "environment": "*",

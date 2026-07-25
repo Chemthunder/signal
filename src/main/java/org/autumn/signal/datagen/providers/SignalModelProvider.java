@@ -19,5 +19,6 @@ public class SignalModelProvider extends FabricModelProvider {
 
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(SignalItems.BEACON, Models.HANDHELD);
+        itemModelGenerator.register(SignalItems.LEYLINE, Models.GENERATED);
     }
 }
